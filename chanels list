@@ -1,2 +1,3 @@
-nixos https://channels.nixos.org/nixos-24.11
-nixpkgs https://nixos.org/channels/nixos-24.11
+home-manager https://github.com/nix-community/home-manager/archive/master.tar.gz
+nixos https://nixos.org/channels/nixos-unstable
+nixpkgs https://nixos.org/channels/nixos-unstable
