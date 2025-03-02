@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
-			#------IMPORTS------
+
 {
+			#------IMPORTS------
   imports =
     	[
       		./hardware-configuration.nix
@@ -20,10 +21,8 @@
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
-  # Enable networking
   networking.networkmanager.enable = true;
 
-  # Set your time zone.
   time.timeZone = "Europe/Moscow";
 
   # Select internationalisation properties.
@@ -41,20 +40,16 @@
     LC_TIME = "ru_RU.UTF-8";
   };
 
-  # Enable the X11 windowing system.
   services.xserver.enable = true;
 
-  # Enable the GNOME Desktop Environment.
   services.xserver.displayManager.gdm.enable = true;
   services.xserver.desktopManager.gnome.enable = true;
 
-  # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
     variant = "";
   };
 
-  # Enable CUPS to print documents.
   services.printing.enable = true;
 
   # Enable sound with pipewire.
@@ -76,7 +71,6 @@
   # Enable touchpad support (enabled default in most desktopManager).
   # services.xserver.libinput.enable = true;
 
-  # Define a user account. Don't forget to set a password with ‘passwd’.
 			#------USERS------
  users.users.rioryfox = {
     isNormalUser = true;
@@ -89,7 +83,6 @@
 
 			#------HOME MANAGER------
   home-manager.users.rioryfox = { pkgs, ...}: {
-   # List packages to install in user profile
     home.packages = with pkgs; [ 
 	python3
 	git
@@ -107,15 +100,22 @@
 
 			#------PROGRAMS------
   #---firefox---
-  programs.firefox.enable = true;
+  programs.firefox  = {
+	enable = true;
+  };
   #---steam---
   programs.steam = {
   	enable = true;
   	remotePlay.openFirewall = true; # Open ports in the firewall for Steam Remote Play
   	dedicatedServer.openFirewall = true; # Open ports in the firewall for Source Dedicated Server
   	localNetworkGameTransfers.openFirewall = true; # Open ports in the firewall for Steam Local Network Game Transfers
-};
-
+  };
+  #---hyprland---
+  programs.hyprland = {
+	enable = true;
+	withUWSM = true;
+	xwayland.enable = true;
+  };
   # List packages installed in system profile. To search, run:
   # $ nix search wget
 
@@ -127,6 +127,7 @@
   	vim
 	#---python---
 	python3
+	#python2
 	#---vlc---
 	vlc
 	libvlc
@@ -169,6 +170,17 @@
  	amnezia-vpn 	
 	amneziawg-go
   	amneziawg-tools	
+	#---libreoffice---
+	libreoffice-qt
+	hunspell
+	hunspellDicts.uk_UA
+	hunspellDicts.th_TH
+	#---krita---
+	krita
+	#---kitty - for hyperland---
+	kitty
+	#---telegram---
+	telegram-desktop
   ]; 
 
   # Some programs need SUID wrappers, can be configured further or are
