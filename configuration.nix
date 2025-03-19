@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ lib, config, pkgs, ... }:
 
 {
 			#------IMPORTS------
@@ -126,8 +126,10 @@
 	#---vim---
   	vim
 	#---python---
-	python3
-	#python2
+	python3Full
+	python3Packages.pip
+	python3Packages.setuptools
+	python313Packages.toolz
 	#---vlc---
 	vlc
 	libvlc
@@ -181,6 +183,22 @@
 	kitty
 	#---telegram---
 	telegram-desktop
+	#---hiddify---
+	hiddify-app
+	#---hyprpaper---
+	hyprpaper
+	#---picocom---
+	picocom
+	#---ampy---
+	adafruit-ampy
+	#--affine---
+	affine
+	#---nodejs---
+	nodejs
+	#---php---
+	php
+	#---open webui---
+	open-webui
   ]; 
 
   # Some programs need SUID wrappers, can be configured further or are
@@ -197,8 +215,16 @@
     services.openssh.enable = true;
 			
 
-  #nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) ["vscode"];
-  nixpkgs.config.allowUnfree = true;
+  nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
+	"vscode"
+	"vscode-with-extensions"
+	"vscode-extension-ms-vscode-remote-remote-ssh"
+	"hiddify-app"
+	"hiddify-core"
+	"steam"
+	"steam-unwrapped"
+];
+  #nixpkgs.config.allowUnfree = true;
 
 			#------FIREWALL------
   # Open ports in the firewall.
@@ -215,5 +241,5 @@
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
 
 			#------SYTEM------
-  system.stateVersion = "24.11"; # Did you read the comment? #Yes, I read it :)
+  system.stateVersion = "24.11"; # Did you read the comment? #Yes, I did :)
 }
